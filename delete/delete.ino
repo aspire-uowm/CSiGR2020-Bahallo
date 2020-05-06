@@ -1,7 +1,7 @@
 void setup() 
 {
   // put your setup code here, to run once:
-sdfasdas
+ System.println("sdfasdas");
 }
 
 void loop()
