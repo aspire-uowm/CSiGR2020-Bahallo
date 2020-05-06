@@ -30,7 +30,7 @@ void loop() {
   Serial.print("Sending packet: ");
 
   //Send LoRa packet to receiver
-  //SendToBase("Hello!");
+  SendToBase("Hello!");
   
-  delay(500);
+  delay(2000);
 }
