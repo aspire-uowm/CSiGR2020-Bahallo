@@ -1,36 +1,60 @@
-#include <LoRa.h>
+#include "freertos/FreeRTOS.h"
+#include "esp_wifi.h"
+#include "esp_wifi_types.h"
+#include "esp_system.h"
+#include "esp_event.h"
+#include "esp_event_loop.h"
+#include "nvs_flash.h"
+#include "driver/gpio.h"
 
-#define SendToBase(STR) LoRa.beginPacket();LoRa.print(STR);LoRa.endPacket();
+#define LED_GPIO_PIN                     5
+#define WIFI_CHANNEL_SWITCH_INTERVAL  (500)
+#define WIFI_CHANNEL_MAX               (1)
 
-//definig protocol pins
-#define SCK 5
-#define MISO 19
-#define MOSI 27
-#define SS 18
-#define RST 14
-#define DIO0 26
+uint8_t level = 0, channel = 7;
 
-#define BAND 866E6//for Europe ;)
+static wifi_country_t wifi_country = {.cc="GR", .schan = 7, .nchan = 7}; //Most recent esp32 library struct
+
+static void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type){
+  if (type != WIFI_PKT_MGMT)return;
+
+  const wifi_promiscuous_pkt_t *ppkt = (wifi_promiscuous_pkt_t *)buff;
+  printf("CHAN=%02d, RSSI=%02d\n",ppkt->rx_ctrl.channel,ppkt->rx_ctrl.rssi);
+}
+
+static esp_err_t event_handler(void *ctx, system_event_t *event){return ESP_OK;}
+
+static void wifi_sniffer_init(void){
+  
+  nvs_flash_init();
+  tcpip_adapter_init();
+  ESP_ERROR_CHECK( esp_event_loop_init(event_handler, NULL) );
+  wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+  ESP_ERROR_CHECK( esp_wifi_init(&cfg) );
+  ESP_ERROR_CHECK( esp_wifi_set_country(&wifi_country) ); /* set country for channel range [1, 13] */
+  ESP_ERROR_CHECK( esp_wifi_set_storage(WIFI_STORAGE_RAM) );
+  ESP_ERROR_CHECK( esp_wifi_set_mode(WIFI_MODE_NULL) );
+  ESP_ERROR_CHECK( esp_wifi_start() );
+  esp_wifi_set_promiscuous(true);
+  esp_wifi_set_promiscuous_rx_cb(&wifi_sniffer_packet_handler);
+}
 
 void setup() {
-  Serial.begin(115200);//setting baudrate
-
-  Serial.print("Setup Start...");
-  //SPI.begin(SCK, MISO, MOSI, SS); //pin initializaton
-  LoRa.setPins(SS, RST, DIO0);//LoRa module initialization
-
-  //wait until Lora initialization
-  while (!LoRa.begin(BAND))Serial.println("Starting LoRa failed!");
-
-  Serial.println("LoRa Initializing OK!");
-  delay(200);
+  Serial.begin(115200);
+  delay(10);
+  
+  wifi_sniffer_init();
+  
+  pinMode(LED_GPIO_PIN, OUTPUT);
 }
 
 void loop() {
-  Serial.print("Sending packet: ");
-
-  //Send LoRa packet to receiver
-  SendToBase("Hello!");
+  //Serial.print("inside loop");
+  delay(1000); // wait for a second
   
-  delay(2000);
+  if (digitalRead(LED_GPIO_PIN) == LOW)digitalWrite(LED_GPIO_PIN, HIGH);
+  else digitalWrite(LED_GPIO_PIN, LOW);
+  vTaskDelay(WIFI_CHANNEL_SWITCH_INTERVAL / portTICK_PERIOD_MS);
+  //wifi_sniffer_set_channel(channel);
+  esp_wifi_set_channel(channel, WIFI_SECOND_CHAN_NONE);
 }
