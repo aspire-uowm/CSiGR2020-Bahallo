@@ -43,10 +43,9 @@ void setup()
   LoRa.setPins(SS, RST, DIO0);
   
   //Test Lora if Begins
-  if (!LoRa.begin(BAND)) 
+  while (!LoRa.begin(BAND)) 
   {
     Serial.println("Starting LoRa failed!");
-    while (1);
   }
   Serial.println("LoRa Initializing OK!");
   
@@ -130,7 +129,7 @@ void displayInfo()
   // Error Check
   else
   {
-    Serial.println("Not Available");
+    Serial.println("Date Not Available");
   }
 
   Serial.print("Time: ");
@@ -178,7 +177,7 @@ void displayInfo()
   //Error check
   else
   {
-    Serial.println("Not Available");
+    Serial.println("Minute Not Available");
   }
 
   Serial.println("");
