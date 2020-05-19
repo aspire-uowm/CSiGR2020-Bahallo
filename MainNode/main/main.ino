@@ -15,7 +15,7 @@ uint8_t level = 0, channel = 7;
 
 static wifi_country_t wifi_country = {.cc="GR", .schan = 7, .nchan = 7}; //Most recent esp32 library struct
 
-static void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type){
+static void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type){ //if packet is type of "MGMT" casts data to wifi_promiscuous_pkt_t * and prints channel and rssi of them
   if (type != WIFI_PKT_MGMT)return;
 
   const wifi_promiscuous_pkt_t *ppkt = (wifi_promiscuous_pkt_t *)buff;
@@ -35,9 +35,8 @@ static void wifi_sniffer_init(void){
   ESP_ERROR_CHECK( esp_wifi_set_storage(WIFI_STORAGE_RAM) );
   ESP_ERROR_CHECK( esp_wifi_set_mode(WIFI_MODE_NULL) );
   ESP_ERROR_CHECK( esp_wifi_start() );
-  esp_wifi_set_promiscuous(true);
-  esp_wifi_set_promiscuous_rx_cb(&wifi_sniffer_packet_handler);
-}
+  esp_wifi_set_promiscuous(true);//enables promiscuous mode (meaning that receiver also analyzes data of packets instead of only receiving and tranfering them 
+  esp_wifi_set_promiscuous_rx_cb(&wifi_sniffer_packet_handler);//whenever a package is received , promiscuous data are given to the parameter function 
 
 void setup() {
   Serial.begin(115200);
