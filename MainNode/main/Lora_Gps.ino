@@ -1,3 +1,18 @@
+/*
+!!! Sdcard must formatted in FAT32 !!!
+*/
+
+/*
+RHSoftwareSPI sx1278_spi;
+RH_RF95 rf95(LORA_CS, LORA_IRQ, sx1278_spi);
+
+sx1278_spi.setPins(LORA_MISO, LORA_MOSI, LORA_SCK);
+if (!rf95.init()) 
+    Serial.println("LoRa Radio: init failed.");
+else
+    Serial.println("LoRa Radio: init OK!");
+*/
+
 //Libraries for LoRa
 #include <SPI.h>
 #include <LoRa.h>
@@ -5,6 +20,12 @@
 //Include Gps Library
 #include <SoftwareSerial.h>
 #include <TinyGPS++.h>
+
+//Define the pins for Sdcard to HSPI
+#define SD_CS 23
+#define SD_SCK 17
+#define SD_MOSI 12
+#define SD_MISO 13
 
 //define the pins used by the LoRa transceiver module
 #define SCK 5
@@ -51,9 +72,24 @@ void setup()
   
   delay(2000);
 
+  //Use HSPI for communication with SDCard 
+  SPIClass sd_spi(HSPI);
+  sd_spi.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
+
+  if (!SD.begin(SD_CS, sd_spi))
+   {
+    Serial.println("SD Card: mounting failed.");
+   }
+  else 
+   {
+    Serial.println("SD Card: mounted.");
+   }
+  
   // Setup Gps
   // Start the software serial port at the GPS's default baud
   gpsSerial.begin(GPSBaud);
+
+  
 }
 
 void loop() 
