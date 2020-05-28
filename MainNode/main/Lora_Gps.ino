@@ -3,8 +3,7 @@
 #include <LoRa.h>
 
 //Include Gps Library
-#include <SoftwareSerial.h>
-#include <TinyGPS++.h>
+#include <TinyGPS.h>
 
 //define the pins used by the LoRa transceiver module
 #define SCK 5
@@ -25,9 +24,6 @@ int GPSBaud = 9600;
 
 // Create a TinyGPS++ object
 TinyGPSPlus gps;
-
-// Create a software serial port called "gpsSerial"
-SoftwareSerial gpsSerial(RXPin, TXPin);
 
 void setup() 
 {
@@ -50,10 +46,6 @@ void setup()
   Serial.println("LoRa Initializing OK!");
   
   delay(2000);
-
-  // Setup Gps
-  // Start the software serial port at the GPS's default baud
-  gpsSerial.begin(GPSBaud);
 }
 
 void loop() 
