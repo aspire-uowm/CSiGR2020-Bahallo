@@ -2,8 +2,13 @@
 #include <SPI.h>
 #include <LoRa.h>
 
-//Include Gps Library
-#include <TinyGPS.h>
+//include gps lib
+#include <TinyGPS++.h> 
+#include <HardwareSerial.h>
+
+#include "_defines.h"
+#include "_global.h"
+#include "dev_gps.h"
 
 //define the pins used by the LoRa transceiver module
 #define SCK 5
@@ -25,8 +30,8 @@ int GPSBaud = 9600;
 // Create a TinyGPS++ object
 TinyGPSPlus gps;
 
-void setup() 
-{
+void setup() {
+  
   //Setup Lora
   //initialize Serial Monitor
   Serial.begin(9600);
@@ -44,13 +49,28 @@ void setup()
     Serial.println("Starting LoRa failed!");
   }
   Serial.println("LoRa Initializing OK!");
-  
+
+  #ifdef DEBUG
+  Serial.println("=====================================");
+  Serial.print(FILENAME);
+  Serial.print(" compiled: ");
+  Serial.print(__DATE__);
+  Serial.print(" ");
+  Serial.println(__TIME__);
+  Serial.println("Hardware: ESP32, Neo 6m gps conected by serial");
+  Serial.println("pins on ESP32 rx=16, tx=18");
+  Serial.println("Libraries TinyGPS++.h and HardwareSerial.h");
+  Serial.println("by Vicente Niclos 2019");
+  Serial.println("=====================================");
+  #endif
+
+  fncDev_Gps_setup();
   delay(2000);
 }
 
 void loop() 
 {
- while (gpsSerial.available() > 0)
+ while (.available() > 0)
  {
     if (gps.encode(gpsSerial.read()))
     {
@@ -64,12 +84,13 @@ void loop()
   {
     Serial.println("No GPS detected");
   }
+    fncDev_Gps_Loop_IsInterval();
 }
 
 
 
 
-void displayInfo()
+/*void displayInfo()
 {
   Lora.beginPacket();
   if (gps.location.isValid())
@@ -176,5 +197,5 @@ void displayInfo()
   Serial.println("");
   
   Lora.endPacket();
-}
+}*/
   
