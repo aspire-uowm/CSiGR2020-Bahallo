@@ -14,7 +14,7 @@ uint8_t level = 0, channel = 7;
 
 static wifi_country_t wifi_country = {.cc="GR", .schan = 7, .nchan = 7}; //Most recent esp32 library struct
 
-static void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type){ //if packet is type of "MGMT" casts data to wifi_promiscuous_pkt_t * and prints channel and rssi of them
+void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type){ //if packet is type of "MGMT" casts data to wifi_promiscuous_pkt_t * and prints channel and rssi of them
   if (type != WIFI_PKT_MGMT)return;
 
   if (digitalRead(LED_GPIO_PIN) == LOW)digitalWrite(LED_GPIO_PIN, HIGH);
@@ -53,6 +53,7 @@ void setup(){
 void loop(){
   //Serial.println("inside loop");
   delay(500); // wait for a second
+  
   vTaskDelay(WIFI_CHANNEL_SWITCH_INTERVAL / portTICK_PERIOD_MS);
   esp_wifi_set_channel(channel, WIFI_SECOND_CHAN_NONE);
 }
