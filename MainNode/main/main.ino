@@ -1,36 +1,59 @@
-#include <LoRa.h>
+/*  Arduino Tutorial - Testing the Adafruits BMP280 Presure & Temperature Sensor
+  I2C Connection: Vin: 5V/3V, GND: GND, SCK: A5 (SCL), SDI: A4 (SDA) 
+  Dev: Michalis Vasilakis // Date: 8/3/206 // Info: www.ardumotive.com    */
+  
+#include <Wire.h>
+#include <SPI.h> //Why? Because library supports SPI and I2C connection
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BMP280.h>
 
-#define SendToBase(STR) LoRa.beginPacket();LoRa.print(STR);LoRa.endPacket();
+//Setup connection of the sensor
+Adafruit_BMP280 bmp; // I2C
+//For SPI connection!
 
-//definig protocol pins
-#define SCK 5
-#define MISO 19
-#define MOSI 27
-#define SS 18
-#define RST 14
-#define DIO0 26
+/*
+#define BMP_SCK 13
+#define BMP_MISO 12
+#define BMP_MOSI 11 
+#define BMP_CS 10
+*/
 
-#define BAND 866E6//for Europe ;)
+//Adafruit_BMP280 bme(BMP_CS); // hardware SPI
+//Adafruit_BMP280 bme(BMP_CS, BMP_MOSI, BMP_MISO,  BMP_SCK);
+
+
+//Variables
+float pressure;   //To store the barometric pressure (Pa)
+float temperature;  //To store the temperature (oC)
+int altimeter;    //To store the altimeter (m) (you can also use it as a float variable)
 
 void setup() {
-  Serial.begin(115200);//setting baudrate
-
-  Serial.print("Setup Start...");
-  //SPI.begin(SCK, MISO, MOSI, SS); //pin initializaton
-  LoRa.setPins(SS, RST, DIO0);//LoRa module initialization
-
-  //wait until Lora initialization
-  while (!LoRa.begin(BAND))Serial.println("Starting LoRa failed!");
-
-  Serial.println("LoRa Initializing OK!");
-  delay(200);
+    Serial.begin(9600); //Begin serial communication at 9600bps
+    
+    do{ Serial.println("Error");
+    }while(bmp.begin());
+    
+    Serial.println("Adafruit BMP280 test:");
 }
 
 void loop() {
-  Serial.print("Sending packet: ");
-
-  //Send LoRa packet to receiver
-  SendToBase("Hello!");
+  //Read values from the sensor:
+  pressure = bmp.readPressure();
+  temperature = bmp.readTemperature();
+  altimeter = bmp.readAltitude(1008); //Change the "1050.35" to your city current barrometric pressure (https://www.wunderground.com)
   
-  delay(2000);
+    //Print values to serial monitor:
+    Serial.print(F("Pressure: "));
+    Serial.print(pressure);
+    Serial.print(" Pa");
+    
+    Serial.print(F("Temp: "));
+    Serial.print(temperature);
+    Serial.print("oC");
+    
+    Serial.print(F("Altimeter: "));
+    Serial.print(altimeter); // this should be adjusted to your local forcase
+    Serial.println("m");
+    
+    delay(2000); //Update every 5 sec
 }
