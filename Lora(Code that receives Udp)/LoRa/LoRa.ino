@@ -50,14 +50,13 @@ void loop()
       udp.beginPacket(udpAddress, udpPort);
       udp.write(rx_val);
       udp.endPacket();
-  }
-  else
-  {
-    udp.read(pktbuf, 1);
-    Serial.print("Packet from " + String(udpAddress) + ": ");
-    Serial.println(pktbuf);
-    delay(1000); 
-  }
-    
+    }
+    else
+    {
+      udp.read(pktbuf, 1);
+      Serial.print("Packet from " + String(udpAddress) + ": ");
+      Serial.println(pktbuf);
+      delay(1000); 
+    } 
   }
 }
