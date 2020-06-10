@@ -21,14 +21,12 @@
 //866E6 for Europe
 #define BAND 866E6
 
-// Choose two Arduino pins to use for software serial
-int RXPin = 2;
-int TXPin = 3;
-
 int GPSBaud = 9600;
 
 // Create a TinyGPS++ object
 TinyGPSPlus gps;
+
+//HardwareSerial g_device_GpsSerial(1);  // gps  recive data by uart
 
 void setup() {
   
@@ -64,17 +62,17 @@ void setup() {
   Serial.println("=====================================");
   #endif
 
-  fncDev_Gps_setup();
+  g_device_GpsSerial.begin(9600, SERIAL_8N1, 3, 1);
   delay(2000);
 }
 
 void loop() 
 {
- while (.available() > 0)
+ while (g_device_GpsSerial.available() > 0)
  {
-    if (gps.encode(gpsSerial.read()))
+    if (gps.encode(g_device_GpsSerial.read()))
     {
-      displayInfo();
+     displayInfo();//does not work needs figuring out
       delay(2000);
     }
  }
