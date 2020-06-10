@@ -13,8 +13,6 @@
  *    D1       4
  */
 
-#include <FS.h>
-#include <SD_MMC.h>
 #include <SPI.h>
 #include <SD.h>
 
@@ -23,6 +21,8 @@
 #define SD_MOSI 15
 #define SD_MISO 2
 
+#define LOG_PATH "/testdir.log"
+
 SPIClass sd_spi(HSPI);
 
 void setup(){
@@ -30,13 +30,27 @@ void setup(){
 
     sd_spi.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
     
-    if (!SD.begin(SD_CS, sd_spi))Serial.println("SD Card: mounting failed.");
-    else Serial.println("SD Card: mounted.");
+    if (!SD.begin(SD_CS, sd_spi)){
+      Serial.println("SD Card: mounting failed.");
+    }
+    else{
+      Serial.println("SD Card: mounted.");
+    }
 }
+uint8_t lora_buf[]="Panda";
+uint8_t lora_len=5;
 
 void loop(){
   
-    
+  File test = SD.open(LOG_PATH, FILE_APPEND);
+  if (!test) {
+            Serial.println("SD Card: writing file failed.");
+  } else {
+      Serial.printf("SD Card: appending data to %s.\n", LOG_PATH);
+      test.write(lora_buf,lora_len);
+      test.printf("\n\n");
+      test.close();
+    }  
 
   delay(5000);
 }
