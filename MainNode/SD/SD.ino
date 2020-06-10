@@ -15,6 +15,15 @@
 
 #include <FS.h>
 #include <SD_MMC.h>
+#include <SPI.h>
+#include <SD.h>
+
+#define SD_CS 13
+#define SD_SCK 14
+#define SD_MOSI 15
+#define SD_MISO 2
+
+SPIClass sd_spi(HSPI);
 
 void listDir(fs::FS &fs, const char * dirname, uint8_t levels){
     Serial.printf("Listing directory: %s\n", dirname);
@@ -172,10 +181,13 @@ void testFileIO(fs::FS &fs, const char * path){
 
 void setup(){
     Serial.begin(115200);
-    if(!SD_MMC.begin()){
-        Serial.println("Card Mount Failed");
-        return;
-    }
+
+    sd_spi.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
+    if (!SD.begin(SD_CS, sd_spi))
+      Serial.println("SD Card: mounting failed.");
+    else 
+      Serial.println("SD Card: mounted.");
+    
     uint8_t cardType = SD_MMC.cardType();
 
     if(cardType == CARD_NONE){
@@ -209,10 +221,14 @@ void setup(){
     renameFile(SD_MMC, "/hello.txt", "/foo.txt");
     readFile(SD_MMC, "/foo.txt");
     testFileIO(SD_MMC, "/test.txt");
+    
     Serial.printf("Total space: %lluMB\n", SD_MMC.totalBytes() / (1024 * 1024));
     Serial.printf("Used space: %lluMB\n", SD_MMC.usedBytes() / (1024 * 1024));
 }
 
 void loop(){
+  
+    
 
+  delay(5000);
 }
