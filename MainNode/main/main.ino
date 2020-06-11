@@ -11,6 +11,15 @@
 #define WIFI_CHANNEL_MAX               (1)
 
 uint8_t level = 0, channel = 7;
+#define SendToBase(STR) LoRa.beginPacket();LoRa.print(STR);LoRa.endPacket();
+//AAAAA
+//definig protocol pins
+#define SCK 5
+#define MISO 19
+#define MOSI 27
+#define SS 18
+#define RST 14
+#define DIO0 26
 
 static wifi_country_t wifi_country = {.cc="GR", .schan = 7, .nchan = 7}; //Most recent esp32 library struct
 
