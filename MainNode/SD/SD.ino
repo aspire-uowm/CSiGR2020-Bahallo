@@ -37,20 +37,21 @@ void setup(){
       Serial.println("SD Card: mounted.");
     }
 }
-uint8_t lora_buf[]="Panda";
-uint8_t lora_len=5;
+uint8_t buf[]="Panda";
+uint8_t len=5;
 
 void loop(){
   
   File test = SD.open(LOG_PATH, FILE_APPEND);
-  if (!test) {
-            Serial.println("SD Card: writing file failed.");
-  } else {
+  
+  if (!test)
+      Serial.println("SD Card: writing file failed."); 
+  else {
       Serial.printf("SD Card: appending data to %s.\n", LOG_PATH);
-      test.write(lora_buf,lora_len);
+      test.write(buf,len);
       test.printf("\n\n");
       test.close();
-    }  
+   }
 
   delay(5000);
 }
