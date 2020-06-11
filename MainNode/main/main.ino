@@ -12,7 +12,7 @@
 
 uint8_t level = 0, channel = 7;
 #define SendToBase(STR) LoRa.beginPacket();LoRa.print(STR);LoRa.endPacket();
-//AAAAA
+
 //definig protocol pins
 #define SCK 5
 #define MISO 19
