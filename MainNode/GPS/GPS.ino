@@ -46,11 +46,11 @@ double gps_longitude = 0.0;
 char lat_direction, lgt_direction;
 
 void parseNMEA(){
-char inByte;
-bool detect_new_line=false;
+  char inByte;
+  bool detect_new_line=false;
   
-  while (!detect_new_line)
-  {
+  while (!detect_new_line){
+    
     if (gps_serial.available()) {
       inByte = gps_serial.read();
     
