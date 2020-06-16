@@ -1,0 +1,32 @@
+#include "defines.h"
+
+//Basic Libraries
+#include <Wire.h>
+#include <SD.h>
+
+//BMP280 Includes
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BMP280.h>
+
+//Libraries for LoRa
+#include <LoRa.h>
+
+SPIClass sd_spi(HSPI);
+
+char GPSBuffer[150];
+byte GPSIndex=0;
+double gps_latitude = 0.0;
+double gps_longitude = 0.0;
+char lat_direction, lgt_direction;
+
+uint8_t buf[]="Panda";
+uint8_t len=5;
+
+void setup() {
+  Serial.begin(115200);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}

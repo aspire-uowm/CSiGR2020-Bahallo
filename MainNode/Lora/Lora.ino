@@ -19,7 +19,7 @@ void setup() {
   
   //Setup Lora
   //initialize Serial Monitor
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println("LoRa Sender Test");
 
   //SPI LoRa pins

@@ -1,4 +1,4 @@
-//Code that sends Udp packets from lolin wimos:
+#include <WiFi.h>
 #include <WiFiUdp.h>
 
 const char* ssid = "PacketReceiver"; // wifi ssid
