@@ -1,6 +1,3 @@
-//#include <LoRa.h>
-
-#include "defines.h"
 #include "LoRa.h"
 
 void LoRa_Init(){
@@ -17,10 +14,8 @@ void LoRa_Init(){
   Serial.println("LoRa Initializing OK!");  
 }
 
-void LoRa_Run(){
-  Lora.beginPacket();
-  
-  if (gps.location.isValid())Lora.print(gps.location.lat(), 6);
-  
+void LoRa_Run(String message){
+  LoRa.beginPacket();
+  LoRa.print(message); 
   LoRa.endPacket();
 }

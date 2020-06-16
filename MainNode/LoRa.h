@@ -9,4 +9,4 @@
 void LoRa_Init();
 
 //run gps
-void LoRa_Run();
+void LoRa_Run(String message);

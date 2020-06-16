@@ -1,3 +1,4 @@
+#include "defines.h"
 
 char GPSBuffer[150];
 byte GPSIndex=0;

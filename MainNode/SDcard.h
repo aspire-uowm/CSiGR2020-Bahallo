@@ -1,4 +1,7 @@
 #include <Arduino.h>
+#include <SD.h>
+#include <SPI.h>
+
 #include "defines.h"
 
 /*
@@ -15,6 +18,11 @@
  *    D0       2  (add 1K pull up after flashing)
  *    D1       4
  */
+
+SPIClass sd_spi(HSPI);
+
+uint8_t buf[]="Panda";
+uint8_t len=5;
 
 //initialize te on board sdcard pins
 void SDcard_Init();

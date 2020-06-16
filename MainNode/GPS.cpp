@@ -1,12 +1,4 @@
-#include "defines.h"
 #include "GPS.h"
-
-/*
-char GPSBuffer[150];
-byte GPSIndex=0;
-double gps_latitude = 0.0;
-double gps_longitude = 0.0;
-char lat_direction, lgt_direction;*/
 
 void parseNMEA(){
   char inByte;

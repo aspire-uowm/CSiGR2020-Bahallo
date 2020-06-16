@@ -1,6 +1,3 @@
-#include <Arduino.h>
-#include "defines.h"
-
 #include "SDcard.h"
 
 /*

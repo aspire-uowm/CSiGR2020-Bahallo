@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+#define LED_GPIO_PIN 34
+
 //BMP Initialization Pins
 #define BMP_SCK 13
 #define BMP_MISO 12

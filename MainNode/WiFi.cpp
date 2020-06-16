@@ -1,5 +1,3 @@
-#include <Arduino.h>
-
 #include "WiFi.h"
 
 void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type){ //if packet is type of "MGMT" casts data to wifi_promiscuous_pkt_t * and prints channel and rssi of them

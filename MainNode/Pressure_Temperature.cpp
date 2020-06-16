@@ -1,8 +1,3 @@
-#include <Arduino.h>
-
-#include <Adafruit_Sensor.h>
-#include <Adafruit_BMP280.h>
-
 #include "Pressure_Temperature.h"
 
 void Pressure_TemperatureInit(){
