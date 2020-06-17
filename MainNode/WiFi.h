@@ -7,9 +7,12 @@
 #include "nvs_flash.h"
 #include "driver/gpio.h"
 
-#include "defines.h"
+#define WIFI_CHANNEL_SWITCH_INTERVAL  (500)
+#define WIFI_CHANNEL_MAX               (1)
 
-uint8_t level = 0, channel = 7;
+#define LED_GPIO_PIN 5
+
+static uint8_t level = 0, channel = 7;
 
  //Most recent esp32 library struct
 static wifi_country_t wifi_country = {.cc="GR", .schan = 7, .nchan = 7};

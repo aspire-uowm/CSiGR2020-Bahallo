@@ -2,7 +2,12 @@
 #include <SD.h>
 #include <SPI.h>
 
-#include "defines.h"
+#define SD_CS 13
+#define SD_SCK 14
+#define SD_MOSI 15
+#define SD_MISO 2
+
+#define LOG_PATH "/testdir.log"
 
 /*
  * Connect the SD card to the following pins:
@@ -19,10 +24,10 @@
  *    D1       4
  */
 
-SPIClass sd_spi(HSPI);
+static SPIClass sd_spi(HSPI);
 
-uint8_t buf[]="Panda";
-uint8_t len=5;
+static uint8_t buf[]="Panda";
+static uint8_t len=5;
 
 //initialize te on board sdcard pins
 void SDcard_Init();
