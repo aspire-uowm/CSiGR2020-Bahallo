@@ -1,10 +1,10 @@
-//#include <ESP8266WiFi.h>
+#include <ESP8266WiFi.h>
 
 extern "C" {
   #include "user_interface.h"
 }
 
-String alfa = "1234567890qwertyuiopasdfghjkklzxcvbnm QWERTYUIOPASDFGHJKLZXCVBNM_";
+String APname = "Bahalo";
 byte channel;
 
 // Beacon Packet buffer
@@ -34,8 +34,8 @@ void setup() {
 void loop() {
     // Randomize channel //
    
-    channel = random(1,12); 
-    wifi_set_channel(channel);
+    channel = 1; 
+    wifi_set_channel(1);
 
     // Randomize SRC MAC
     packet[10] = packet[16] = random(256);
@@ -46,17 +46,12 @@ void loop() {
     packet[15] = packet[21] = random(256);
 
     // Randomize SSID (Fixed size 6. Lazy right?)
-    packet[38] = alfa[random(65)];
-    packet[39] = alfa[random(65)];
-    packet[40] = alfa[random(65)];
-    packet[41] = alfa[random(65)];
-    packet[42] = alfa[random(65)];
-    packet[43] = alfa[random(65)];
+    packet[38] = APname;
     
     packet[56] = channel;
     
     wifi_send_pkt_freedom(packet, 57, 0);
     wifi_send_pkt_freedom(packet, 57, 0);
     wifi_send_pkt_freedom(packet, 57, 0);
-    delay(500);
+    delay(1);
 }
