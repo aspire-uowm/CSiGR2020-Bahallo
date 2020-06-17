@@ -62,8 +62,9 @@ void loop()
 #define BAND 866E6
 
 
-void setup() {
-  // put your setup code here, to run once: 
+void setup() 
+{
+  // Put your setup code here, to run once: 
   Serial.begin(115200);
   Serial.println("LoRa Receiver starting");
 
@@ -75,12 +76,14 @@ void setup() {
   }
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop() 
+{
+  // Put your main code here, to run repeatedly:
 
   LoRa.beginPacket();
 
   LoRa.print("Hello World");
+  Serial.print("Hello World");
 
   LoRa.endPacket();
 
