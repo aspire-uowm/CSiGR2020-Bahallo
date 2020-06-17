@@ -1,9 +1,7 @@
-#include <Arduino.h>
+/*#include <Arduino.h>
 
 #include <WiFi.h>
 #include <WiFiUdp.h>
-
-#include <ESP8266WiFi.h>
 
 const char* ssid = "PacketReceiver"; // wifi ssid
 const char* password = "ekalagamhsou"; //wifi password
@@ -17,4 +15,4 @@ char rx_val;
 
 void WiFiUdp_Init(); 
 
-void WiFiUdp_Run();
+void WiFiUdp_Run();*/
