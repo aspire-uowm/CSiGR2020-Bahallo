@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
@@ -51,6 +52,8 @@ void loop()
 
 }
 
+=======
+>>>>>>> Stashed changes
 #include <ESP8266WiFi.h> // Wifi Connector
 
 //BME/BMP280 specific
