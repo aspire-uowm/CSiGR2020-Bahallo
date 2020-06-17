@@ -1,4 +1,4 @@
-//Libraries for LoRa
+/*//Libraries for LoRa
 #include <SPI.h>
 #include <LoRa.h>
 
@@ -45,7 +45,7 @@ void setup() {
       LoRa.print(gps.location.lat(), 6);
     }
 
-}
+}*/
 
 
 //...........................................Some other code
