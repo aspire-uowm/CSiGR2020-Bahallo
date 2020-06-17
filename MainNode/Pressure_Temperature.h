@@ -10,7 +10,7 @@
  * #define BMP_CS 10
  */
 
-extern Adafruit_BMP280 bme; // I2C
+static Adafruit_BMP280 bme; // I2C
 //Adafruit_BMP280 bme(BMP_CS); // hardware SPI
 //Adafruit_BMP280 bme(BMP_CS, BMP_MOSI, BMP_MISO, BMP_SCK);
 
