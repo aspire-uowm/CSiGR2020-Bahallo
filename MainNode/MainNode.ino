@@ -1,5 +1,3 @@
-#include <Arduino.h>
-
 #include "GPS.h"
 #include "LoRa.h"
 #include "Pressure_Temperature.h"
