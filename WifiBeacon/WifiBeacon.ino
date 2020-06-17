@@ -1,4 +1,4 @@
-#include <ESP8266WiFi.h>
+//#include <ESP8266WiFi.h>
 
 extern "C" {
   #include "user_interface.h"
@@ -58,5 +58,5 @@ void loop() {
     wifi_send_pkt_freedom(packet, 57, 0);
     wifi_send_pkt_freedom(packet, 57, 0);
     wifi_send_pkt_freedom(packet, 57, 0);
-    delay(1);
+    delay(500);
 }
