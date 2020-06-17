@@ -1,5 +1,7 @@
 #include <LoRa.h>
-
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 void setup() {
   // put your setup code here, to run once: 
@@ -26,5 +28,10 @@ void loop() {
       }
       Serial.print(packet);
   }
+
+  ofstream myfile;
+  myfile.open ("example.txt");
+  myfile << "Writing this to a file.\n";
+  myfile.close();
 
 }

@@ -1,4 +1,4 @@
-//Libraries for LoRa
+/*//Libraries for LoRa
 #include <SPI.h>
 #include <LoRa.h>
 
@@ -45,12 +45,22 @@ void loop()
       Lora.print(gps.location.lat(), 6);
     }
 
-}
+}*/
 
 
 //...........................................Some other code
 
-/*#include <LoRa.h>
+#include <LoRa.h>
+#define SCK 5
+#define MISO 19
+#define MOSI 27
+#define SS 18
+#define RST 14
+#define DIO0 26
+
+//866E6 for Europe
+#define BAND 866E6
+
 
 void setup() {
   // put your setup code here, to run once: 
@@ -59,7 +69,7 @@ void setup() {
 
   LoRa.setPins(18,14,26);
 
-  if(!LoRa.begin(868E6)){
+  if(!LoRa.begin(BAND)){
       Serial.println("Could not find a valid LoRa transceiver, check pins used and wiring!");
       delay(100);  
   }
@@ -76,4 +86,4 @@ void loop() {
 
   LoRa.sleep();
 
-}*/
+}
