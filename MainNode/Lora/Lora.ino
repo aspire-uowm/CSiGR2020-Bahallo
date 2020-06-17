@@ -57,6 +57,7 @@ void loop() {
   LoRa.beginPacket();
 
   LoRa.print("Hello World");
+  Serial.print("Hello World");
 
   LoRa.endPacket();
 
