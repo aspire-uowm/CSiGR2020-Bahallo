@@ -1,11 +1,10 @@
-#include "Udp.h"
+/*#include "Udp.h"
 
-void WiFiUdp_Init(){
+void WiFiUdp_Init(char* ssid,char* password){
   WiFi.begin(ssid, password);
   
-    //things that happen until Wifi Connection is established:
-    while (WiFi.waitForConnectResult() != WL_CONNECTED) 
-    {
+  //things that happen until Wifi Connection is established:
+  while (WiFi.waitForConnectResult() != WL_CONNECTED){
       Serial.println("Connection Failed! Rebooting...");
       delay(5000);
       ESP.restart(); 
@@ -18,7 +17,7 @@ void WiFiUdp_Init(){
     //Enable udp
     udp.begin(udpPort);
     Serial.println(udpPort);
-  }
+}
 
 WiFiUdp_Run(){
   int rp1=udp.parsePacket();
@@ -35,4 +34,4 @@ WiFiUdp_Run(){
       udp.endPacket();
     }
   }
-}
+}*/
