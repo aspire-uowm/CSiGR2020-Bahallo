@@ -10,7 +10,6 @@
 #define WIFI_CHANNEL_MAX               (1)
 
 uint8_t level = 0, channel = 7;
-#define SendToBase(STR) LoRa.beginPacket();LoRa.print(STR);LoRa.endPacket();
 
 //Definig protocol pins
 #define SCK 5
@@ -31,8 +30,6 @@ void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type)
   
   const wifi_promiscuous_pkt_t *ppkt = (wifi_promiscuous_pkt_t *)buff;
   printf("CHAN=%02d, RSSI=%02d\n",ppkt->rx_ctrl.channel,ppkt->rx_ctrl.rssi);
-  LoRa.print("Main 1: "+ppkt->rx_ctrl.rssi);
-  Serial.println("Main 1: "+ppkt->rx_ctrl.rssi);
   delay(1000);
 }
 
