@@ -4,7 +4,7 @@ extern "C" {
   #include "user_interface.h"
 }
 
-String APname = "Bahalo";
+const uint8_t* APname = (const uint8_t*)"Bahalo";
 byte channel;
 
 // Beacon Packet buffer
@@ -46,7 +46,7 @@ void loop() {
     packet[15] = packet[21] = random(256);
 
     // Randomize SSID (Fixed size 6. Lazy right?)
-    packet[38] = APname;
+    for(int i=0;i<6; i++)packet[38+i] = APname[i];
     
     packet[56] = channel;
     
