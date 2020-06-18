@@ -12,7 +12,7 @@ void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type){ 
 
 static esp_err_t event_handler(void *ctx, system_event_t *event){return ESP_OK;}//it handles events but how does it fail?
 
-static void wifi_sniffer_init(void){
+void wifi_sniffer_init(void){
   nvs_flash_init();
   tcpip_adapter_init();
   ESP_ERROR_CHECK( esp_event_loop_init(event_handler, NULL) );//runs a loop of handling events...needs more research

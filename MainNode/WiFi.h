@@ -12,14 +12,22 @@
 
 #define LED_GPIO_PIN 5
 
-static uint8_t level = 0, channel = 7;
+#ifdef __cplusplus
+  extern "C" {
+#endif
 
- //Most recent esp32 library struct
-static wifi_country_t wifi_country = {.cc="GR", .schan = 7, .nchan = 7};
+    static uint8_t level = 0, channel = 7;
 
-void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type);//now thats what I'm talking about
+    //Most recent esp32 library struct
+    static wifi_country_t wifi_country = {.cc="GR", .schan = 7, .nchan = 7};
 
-//it handles events but how does it fail?
-static esp_err_t event_handler(void *ctx, system_event_t *event);
+    void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type);//now thats what I'm talking about
 
-static void wifi_sniffer_init(void);
+    //it handles events but how does it fail?
+    static esp_err_t event_handler(void *ctx, system_event_t *event);
+
+    void wifi_sniffer_init(void);
+
+#ifdef __cplusplus
+  }
+#endif
