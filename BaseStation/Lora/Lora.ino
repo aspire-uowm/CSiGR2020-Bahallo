@@ -16,7 +16,8 @@ void setup() {
   Serial.println("LoRa Receiver starting");
 
   //SPI LoRa pins
-  SPI.begin(SCK, MISO, MOSI, SS);
+  //SPI.begin(SCK, MISO, MOSI, SS);
+  SPI.begin();
   //setup LoRa transceiver module
   LoRa.setPins(SS, RST, DIO0);
   
@@ -27,18 +28,7 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  String packet = "";
-  int packetSize = LoRa.parsePacket();
-
-
-  if( packetSize ) {
-      while ( LoRa.available()){
-         packet = LoRa.readString();
-      }
-      Serial.print(packet);
-  }
-  /*
+  
   //try to parse packet
   int packetSize = LoRa.parsePacket();
   if (packetSize) {
@@ -47,13 +37,12 @@ void loop() {
 
     //read packet
     while (LoRa.available()) {
-      LoRaData = LoRa.readString();
-      Serial.print(LoRaData);
+      Serial.print(LoRa.readString());
     }
 
     //print RSSI of packet
     int rssi = LoRa.packetRssi();
     Serial.print(" with RSSI ");    
-    Serial.println(rssi);*/
-
+    Serial.println(rssi);
+  }
 }
