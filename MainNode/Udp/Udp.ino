@@ -6,11 +6,13 @@ const char* ssid = "PacketReceiver"; // wifi ssid
 const char* password = "ekalagamhsou"; //wifi password
 
 const char* udpAddress = "192.168.43.204"; //destination IP
-WiFiUDP udp;
+
 unsigned int udpPort=1234; //Server port
 
 char pktbuf[10];//buffer to store udp data
 char rx_val; //*not sure yet*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+WiFiUDP udp;
 
 void setup() 
 {
