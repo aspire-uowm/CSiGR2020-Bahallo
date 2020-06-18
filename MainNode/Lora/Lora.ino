@@ -13,8 +13,6 @@
 //866E6 for Europe
 #define BAND 866E6
 
-int GPSBaud = 9600;
-
 void setup() {
   
   //Setup Lora
@@ -29,20 +27,19 @@ void setup() {
   LoRa.setPins(SS, RST, DIO0);
   
   //Test Lora if Begins
-  while (!LoRa.begin(BAND)) 
-  {
+  while (!LoRa.begin(BAND)) {
+    
     Serial.println("Starting LoRa failed!");
-  }
-  Serial.println("LoRa Initializing OK!");
+  }Serial.println("LoRa Initializing OK!");
 
   delay(2000);
 }
 
 void loop() 
 {
-    Lora.beginPacket();
-    if (gps.location.isValid()){
-      Lora.print(gps.location.lat(), 6);
-    }
-
+    LoRa.beginPacket();
+    
+    LoRa.print("Bahhalo");
+    
+    LoRa.endPacket();
 }  
