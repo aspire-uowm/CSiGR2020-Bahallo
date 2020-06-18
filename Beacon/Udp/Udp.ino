@@ -49,12 +49,12 @@ void loop()
       rx_val = Serial.read(); //not sure!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       Serial.print("udp_send: ");
       Serial.println(rx_val);
+      
       udp.beginPacket(udpAddress, udpPort);
       udp.write(rx_val);
       udp.endPacket();
-    }
-    else
-    {
+    }else{
+      
       udp.read(pktbuf, 1);
       Serial.print("Packet from " + String(udpAddress) + ": ");
       Serial.println(pktbuf);
