@@ -1,23 +1,10 @@
-#include <WiFi.h>
-#include <WiFiUdp.h>
+#include "Udp.h"
 
-const char* ssid = "PacketReceiver"; // wifi ssid
-const char* password = "ekalagamhsou"; //wifi password
-
-const char* udpAddress = "192.168.43.155"; //destination IP
-WiFiUDP udp;
-unsigned int udpPort=1234; //Server port
-
-char pktbuf[10];//buffer to store udp data
-char rx_val;
-void setup() 
-{
-  Serial.begin(115200);
-  WiFi.begin(ssid, password);
+void UdpInit() {
+  WiFi.begin(Udpssid, Udppassword);
   
   //things that happen until Wifi Connection is established:
-  while (WiFi.waitForConnectResult() != WL_CONNECTED) 
-  {
+  while (WiFi.status() != WL_CONNECTED){
     Serial.println("Connection Failed! Rebooting...");
     delay(5000);
     ESP.restart(); 
@@ -33,11 +20,9 @@ void setup()
 
 }
 
-void loop() 
-{
+void UdpRun() { 
   int rp1=udp.parsePacket();
-  if(!rp1)
-  {
+  if(!rp1){
      //if lora is occupied:
     if(Serial.available() > 0) 
     {
@@ -47,6 +32,6 @@ void loop()
       udp.beginPacket(udpAddress, udpPort);
       udp.write(rx_val);
       udp.endPacket();
+    }
   }
-
 }
