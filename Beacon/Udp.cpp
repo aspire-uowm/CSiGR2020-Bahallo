@@ -7,7 +7,7 @@ void UdpInit() {
   while (WiFi.status() != WL_CONNECTED){
     Serial.println("Connection Failed! Rebooting...");
     delay(5000);
-    ESP.restart(); 
+    //ESP.restart(); 
   }
   
   //after Connection is established:
