@@ -12,13 +12,13 @@ void setup() {
  
   servo.attach(motorPin);
   BMPInit();
-  //UdpInit();
+  UdpInit();
 
   runMotor(0,200,90); 
 }
 
 void loop() {
-  //UdpRun();
+  UdpRun();
   
   delay(10000);
   if(bmp.readAltitude(1019.66) < 55)runMotor(90,500,0);
