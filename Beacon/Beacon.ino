@@ -12,12 +12,20 @@ void setup() {
  
   servo.attach(motorPin);
   BMPInit();
-  UdpInit();
+
+  UdpInit("Node_0");
 
   runMotor(0,200,90); 
 }
 
 void loop() {
+  
+/*
+* for(int i=0; i<3; i++){
+*   UdpInit(Udpssid[i]);
+*   delay(500);
+* }
+*/
   UdpRun();
   
   delay(10000);
