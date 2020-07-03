@@ -5,26 +5,26 @@ WiFiUDP Udp; // Creation of wifi Udp instance
 
 char packetBuffer[255];
 
-unsigned int localPort = 1234;
+unsigned int port = 1234;
 
 const char *ssid = "Node_0";  
 const char *password = '\0';
 
 void UdpInit(){
-  
+  WiFi.mode(WIFI_STA);
   WiFi.softAP(ssid, password);  // ESP-32 as access point
-  Udp.begin(localPort);
+  Udp.begin(port);
 }
 
 void GetUdpackets(){
   int packetSize = Udp.parsePacket();
   
-  if (packetSize) {
+  if (packetSize){
     int len = Udp.read(packetBuffer, 255);
     if (len > 0) packetBuffer[len-1] = 0;
-    Serial.print("Recibido(IP/Size/Data): ");
-    Serial.print(Udp.remoteIP());Serial.print(" / ");
-    Serial.print(packetSize);Serial.print(" / ");
+    Serial.print("Grabed (IP/Size/Data): ");
+    Serial.println(Udp.remoteIP());
+    Serial.println(packetSize);
     Serial.println(packetBuffer);
 
     Udp.beginPacket(Udp.remoteIP(),Udp.remotePort());
@@ -32,5 +32,6 @@ void GetUdpackets(){
     Udp.printf(packetBuffer);
     Udp.printf("\r\n");
     Udp.endPacket();
-  }
+    
+  }else Serial.print('.');
 }

@@ -1,89 +1,52 @@
 #include <ESP8266WiFi.h>
-//#include <WiFi.h>
 #include <WiFiUdp.h>
-//#include <WiFiUDP.h>
 
-WiFiUDP udp;
+WiFiUDP Udp;
 
-char* Udpssid[] = {"Node_0","Node_1","Node_2"}; // wifi ssid
-char* Udppassword = '\0'; //wifi password
-const String  Devicename = "Beacon";
+char* ssid = "Node_0";// SERVER WIFI NAME
+char* password = '\0';// SERVER PASSWORD
+String Devicename = "Beacon";
 
-char* udpAddress = "192.168.43.155"; //destination IP
-unsigned int udpPort = 1234; //Server port
+unsigned int UDPPort = 1234;  
 
-// WIFI Module Role & Port    
-IPAddress APlocal_IP(192, 168, 4, 1);
-IPAddress    apIP(10, 10, 10, 1);
+char result[16];
+char packetBuffer[255];// buffer for incoming data
 
-IPAddress APgateway(192, 168, 4, 1);
-IPAddress APsubnet(255, 255, 255, 0);
-
-//byte mac[] = { 0xFE, 0xBB, 0x34, 0xE5, 0x29, 0xFC };
-
-char pktbuf[10];//buffer to store udp data
-char replyPacket[] = "Hi there! Got the message :-)";
-
-void UdpInit(char* ssid) {
-  //WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid,Udppassword);
-  
-  //things that happen until Wifi Connection is established:
+void Check_WiFi_and_Connect(){
+  Serial.printf("Connecting to %s ", ssid);
+  WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED){
+    delay(500);
     Serial.print(".");
-    delay(5000);
-    //ESP.restart();
-    WiFi.disconnect();// probably not necessary due to WiFi.status() != WL_CONNECTED
-    WiFi.begin("DataTransfer"); 
-  }Serial.println("Good");
-  
-  //after Connection is established:
-  Serial.println(WiFi.localIP()); //prints wifi ip to console
-  Serial.println("Status: Connected");
+  }
+  Serial.println(" connected");
 
-  //Enable udp
-  udp.begin(udpPort);
+  Udp.begin(UDPPort);
   Serial.printf(
     "Now listening at IP %s, UDP port %d\n",
-    WiFi.localIP().toString().c_str(), udpPort
+    WiFi.localIP().toString().c_str(), UDPPort
   );
 }
 
-void UdpRun(){
-
-  //unsigned long tNow;
+void Send_Data_To_Server(){
+  int packetSize = Udp.parsePacket();
+  
+  if (packetSize){
+    // receive incoming UDP packets
+    Serial.printf(
+      "Received %d bytes from %s, port %d\n",
+      packetSize, Udp.remoteIP().toString().c_str(),
+      Udp.remotePort()
+    );
+    int len = Udp.read(packetBuffer, 255);
+    //if (len > 0)packetBuffer[len] = 0;
     
-  //tNow=millis();// get the current runtime
-  //dtostrf(tNow, 8, 0, result);// translate it to a char array.
+    Serial.printf("UDP packet contents: %s\n", packetBuffer);
 
-  int packetSize = udp.parsePacket();
-  if(!packetSize){
-     //if lora is occupied:
-    if(Serial.available() > 0) {
-      
-      char rx_val = Serial.read();
-      Serial.print("udp_send: ");
-      Serial.println(rx_val);
-      
-      udp.beginPacket(udpAddress, udpPort);
-      udp.write(rx_val);
-      udp.endPacket();
-    }
-  }else{// receive incoming UDP packets
-    
-     Serial.printf(
-       "Received %d bytes from %s, port %d\n",
-       packetSize, udp.remoteIP().toString().c_str(),
-       udp.remotePort()
-     );
-     
-     int len = udp.read(pktbuf, 255);
-     if (len > 0)pktbuf[len] = 0;
-     Serial.printf("UDP packet contents: %s\n", pktbuf);
-
-     // send back a reply, to the IP address and port we got the packet from
-     udp.beginPacket(udp.remoteIP(), udp.remotePort());
-     udp.write(replyPacket);
-     udp.endPacket();
+    // send back a reply, to the IP address and port we got the packet from
+    Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
+    Udp.write("Panda"/*packetBuffer*/);
+    Udp.endPacket();
+    delay(500);
   }
 }

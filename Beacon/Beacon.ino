@@ -10,24 +10,17 @@ Servo servo;
 void setup() {
   Serial.begin(115200);
  
-  servo.attach(motorPin);
-  BMPInit();
+  //servo.attach(motorPin);
+  //BMPInit();
 
-  UdpInit("Node_0");
+  Check_WiFi_and_Connect();
 
-  runMotor(0,200,90); 
+  //runMotor(0,200,90); 
 }
 
 void loop() {
+  Send_Data_To_Server();
   
-/*
-* for(int i=0; i<3; i++){
-*   UdpInit(Udpssid[i]);
-*   delay(500);
-* }
-*/
-  UdpRun();
-  
-  delay(10000);
-  if(bmp.readAltitude(1019.66) < 55)runMotor(90,500,0);
+  //delay(10000);
+  //if(bmp.readAltitude(1019.66) < 55)runMotor(90,500,0);
 }
