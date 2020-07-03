@@ -3,7 +3,6 @@
 
 WiFiUDP Udp;
 
-char* ssid = "Node_0";// SERVER WIFI NAME
 char* password = '\0';// SERVER PASSWORD
 String Devicename = "Beacon";
 
@@ -12,7 +11,7 @@ unsigned int UDPPort = 1234;
 char result[16];
 char packetBuffer[255];// buffer for incoming data
 
-void Check_WiFi_and_Connect(){
+void Check_WiFi_and_Connect(char* ssid){
   Serial.printf("Connecting to %s ", ssid);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED){
@@ -31,22 +30,21 @@ void Check_WiFi_and_Connect(){
 void Send_Data_To_Server(){
   int packetSize = Udp.parsePacket();
   
-  if (packetSize){
+  /*if (packetSize)
     // receive incoming UDP packets
     Serial.printf(
       "Received %d bytes from %s, port %d\n",
       packetSize, Udp.remoteIP().toString().c_str(),
       Udp.remotePort()
-    );
-    int len = Udp.read(packetBuffer, 255);
+    );*/
+    //int len = Udp.read(packetBuffer, 255);
     //if (len > 0)packetBuffer[len] = 0;
     
-    Serial.printf("UDP packet contents: %s\n", packetBuffer);
+    //Serial.printf("UDP packet contents: %s\n", packetBuffer);
 
     // send back a reply, to the IP address and port we got the packet from
     Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
-    Udp.write("Panda"/*packetBuffer*/);
+    Udp.write("Hey From Beacon"/*packetBuffer*/);
     Udp.endPacket();
     delay(500);
-  }
 }

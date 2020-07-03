@@ -7,18 +7,21 @@
 
 Servo servo; 
 
+char *NodeNames[] = {"Node_0","Node_1","Node_2"};
+
 void setup() {
   Serial.begin(115200);
  
   //servo.attach(motorPin);
   //BMPInit();
 
-  Check_WiFi_and_Connect();
+  Check_WiFi_and_Connect(NodeNames[0]);
 
   //runMotor(0,200,90); 
 }
 
 void loop() {
+  //for(int i=0;i<3; i++)Check_WiFi_and_Connect(NodeNames[i]);
   Send_Data_To_Server();
   
   //delay(10000);

@@ -12,7 +12,7 @@ const char *password = '\0';
 
 void UdpInit(){
   WiFi.mode(WIFI_STA);
-  WiFi.softAP(ssid, password);  // ESP-32 as access point
+  WiFi.softAP(ssid, password); // ESP-32 as access point
   Udp.begin(port);
 }
 
@@ -27,11 +27,11 @@ void GetUdpackets(){
     Serial.println(packetSize);
     Serial.println(packetBuffer);
 
-    Udp.beginPacket(Udp.remoteIP(),Udp.remotePort());
+    /*Udp.beginPacket(Udp.remoteIP(),Udp.remotePort());
     Udp.printf("received: ");
     Udp.printf(packetBuffer);
     Udp.printf("\r\n");
     Udp.endPacket();
-    
+    */
   }else Serial.print('.');
 }
