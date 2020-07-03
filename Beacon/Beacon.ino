@@ -23,7 +23,8 @@ void setup() {
 void loop() {
   //for(int i=0;i<3; i++)Check_WiFi_and_Connect(NodeNames[i]);
   Send_Data_To_Server();
-  
-  //delay(10000);
+
+  Serial.print('-');
+  delay(1000);
   //if(bmp.readAltitude(1019.66) < 55)runMotor(90,500,0);
 }

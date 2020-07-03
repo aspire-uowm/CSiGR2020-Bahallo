@@ -21,9 +21,9 @@ void GetUdpackets(){
   
   if (packetSize){
     int len = Udp.read(packetBuffer, 255);
-    if (len > 0) packetBuffer[len-1] = 0;
+    //if (len > 0) packetBuffer[len-1] = 0;
     Serial.print("Grabed (IP/Size/Data): ");
-    Serial.println(Udp.remoteIP());
+    //Serial.println(Udp.remoteIP());
     Serial.println(packetSize);
     Serial.println(packetBuffer);
 

@@ -16,7 +16,7 @@ void Check_WiFi_and_Connect(char* ssid){
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED){
     delay(500);
-    Serial.print(".");
+    Serial.print('.');
   }
   Serial.println(" connected");
 
@@ -28,7 +28,7 @@ void Check_WiFi_and_Connect(char* ssid){
 }
 
 void Send_Data_To_Server(){
-  int packetSize = Udp.parsePacket();
+  //int packetSize = Udp.parsePacket();
   
   /*if (packetSize)
     // receive incoming UDP packets
