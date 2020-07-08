@@ -1,7 +1,7 @@
 #include <WiFi.h>
 
-char* ssid = "Node_0";
-char password = '\0';
+char* servicesid = "Node_0";
+char* password = '\0';
 
 WiFiServer server(80);
 IPAddress IP(192,168,2,20);
@@ -13,7 +13,7 @@ void InitServer(){
 
   WiFi.mode(WIFI_AP);
   // Remove the password parameter, if you want the AP (Access Point) to be open
-  WiFi.softAP(ssid, password);
+  WiFi.softAP(servicesid, password);
   WiFi.softAPConfig(IP, IP, mask);
 
   //IPAddress IP = WiFi.softAPIP();

@@ -8,11 +8,11 @@ char packetBuffer[255];
 unsigned int port = 1234;
 
 char *ssid = "Node_0";  
-char password = '\0';
+char *passwd = '\0';
 
 void UdpInit(){
   WiFi.mode(WIFI_STA);
-  WiFi.softAP(ssid, password); // ESP-32 as access point
+  WiFi.softAP(ssid, passwd); // ESP-32 as access point
   Udp.begin(port);
 }
 
