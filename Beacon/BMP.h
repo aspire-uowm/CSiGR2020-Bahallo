@@ -1,17 +1,12 @@
 #include <Adafruit_BMP280.h>
-
-/* This code is to use with Adafruit BMP280           (Metric)
- * It measures both temperature and pressure and it displays them on the Serial monitor with the altitude
- * It's a modified version of the Adafruit example code
- * Refer to www.surtrtech.com or SurtrTech Youtube channel
- */
-
 Adafruit_BMP280 bmp; // I2C Interface
 
-void BMPInit() {
+void BMPInit() 
+{
   Serial.println(F("BMP280 test"));
 
-  while (!bmp.begin()) {
+  while (!bmp.begin()) 
+  {
     Serial.println(F("Could not find a valid BMP280 sensor"));
   }
 
