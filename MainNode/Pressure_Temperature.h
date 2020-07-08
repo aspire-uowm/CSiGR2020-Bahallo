@@ -15,7 +15,26 @@ static Adafruit_BMP280 bme; // I2C
 //Adafruit_BMP280 bme(BMP_CS, BMP_MOSI, BMP_MISO, BMP_SCK);
 
 //initialize the BMP280 Breakout board
-void Pressure_TemperatureInit();
+void Pressure_TemperatureInit(){
+  Serial.println(F("BMP280 test"));
+ 
+  while (!bme.begin()) {
+    Serial.println("Could not find a valid BMP280 sensor, check wiring!");
+    delay(1000);
+  }
+}
 
 //Get
-void Pressure_TemperatureRun();
+void PressureTemperaturePrint(){
+  Serial.print("Temperature = ");
+  Serial.print(bme.readTemperature());
+  Serial.println(" *C");
+ 
+  Serial.print("Pressure = ");
+  Serial.print(bme.readPressure());
+  Serial.println(" Pa");
+ 
+  Serial.print("Approx altitude = ");
+  Serial.print(bme.readAltitude(1013.25)); // this should be adjusted to your local forcase
+  Serial.println(" m");   
+}

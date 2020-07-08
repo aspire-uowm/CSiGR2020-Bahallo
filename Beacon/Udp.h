@@ -27,7 +27,7 @@ void Check_WiFi_and_Connect(char* ssid){
   );
 }
 
-void SendData(){
+void printData(){
   //int packetSize = Udp.parsePacket();
   
   /*if (packetSize)

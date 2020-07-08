@@ -1,0 +1,44 @@
+#include <WiFi.h>
+
+char* ssid = "Node_0";
+char password = '\0';
+
+WiFiServer server(80);
+IPAddress IP(192,168,2,20);
+IPAddress mask = (255, 255, 255, 0);
+
+void InitServer(){
+  // Connect to Wi-Fi network with SSID and password
+  Serial.print("Setting AP (Access Point)…");
+
+  WiFi.mode(WIFI_AP);
+  // Remove the password parameter, if you want the AP (Access Point) to be open
+  WiFi.softAP(ssid, password);
+  WiFi.softAPConfig(IP, IP, mask);
+
+  //IPAddress IP = WiFi.softAPIP();
+  //Serial.print("AP IP address: " + IP);
+  
+  server.begin();
+
+  Serial.println("Server started.");
+  Serial.println("IP: " + WiFi.softAPIP());
+  Serial.println("MAC: " + WiFi.softAPmacAddress());
+}
+
+void Listen(){
+
+  WiFiClient client = server.available();// Listen for incoming clients
+
+  if(!client)return;
+  
+  while(client.connected()){
+    //if(client.available())Serial.write(client.read());  
+    //client.stop();
+    
+    Serial.println("From the station: " + client.readStringUntil('\r'));
+    client.flush();
+    Serial.print("Byte sent to the station: ");
+    Serial.println(client.println("Hey!" + '\r'));
+  }
+}

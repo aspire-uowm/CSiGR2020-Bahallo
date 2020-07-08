@@ -15,7 +15,22 @@
 #define BAND 866E6
 
 //initialize LoRa modulation
-void LoRa_Init();
+void LoRa_Init(){
+   //SPI LoRa pins
+  SPI.begin(SCK, MISO, MOSI, SS);
+  
+  //Setup LoRa transceiver module
+  LoRa.setPins(SS, RST, DIO0);
+  
+  //Test Lora if Begins
+  while (!LoRa.begin(BAND))Serial.println("Starting LoRa failed!");
+  
+  Serial.println("LoRa Initializing OK!");
+}
 
 //run gps
-void LoRa_Run(String message);
+void LoRa_Run(String message){  
+  LoRa.beginPacket();
+  LoRa.print(message); 
+  LoRa.endPacket();
+}

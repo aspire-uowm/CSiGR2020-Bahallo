@@ -5,6 +5,7 @@
 #include "WiFi.h"
 #include "ttnModule.h"
 #include "UdpWifi.h"
+#include "WiFiServer.h"
 
 void setup() {
   Serial.begin(115200);
@@ -17,7 +18,7 @@ void setup() {
 
   //ttnDeviceInit();
 
-  UdpInit();
+  InitServer();
 }
 
 void loop() {
@@ -28,7 +29,7 @@ void loop() {
   //vTaskDelay(WIFI_CHANNEL_SWITCH_INTERVAL / portTICK_PERIOD_MS);
   //esp_wifi_set_channel(channel, WIFI_SECOND_CHAN_NONE);
 
-  GetUdpackets();
+  Listen();
 
   delay(1000);
 }

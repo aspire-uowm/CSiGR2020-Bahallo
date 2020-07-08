@@ -1,5 +1,6 @@
 #include <Servo.h>
-#include "Udp.h"
+
+#include "WiFiClient.h"
 #include "BMP.h"
 
 #define motorPin 2
@@ -15,14 +16,15 @@ void setup() {
   //servo.attach(motorPin);
   //BMPInit();
 
-  Check_WiFi_and_Connect(NodeNames[0]);
+  CheckandConnect(NodeNames[0]);
 
   //runMotor(0,200,90); 
 }
 
 void loop() {
   //for(int i=0;i<3; i++)Check_WiFi_and_Connect(NodeNames[i]);
-  SendData();
+
+  printServer("Hello!\r");
 
   Serial.print('-');
   delay(1000);

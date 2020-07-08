@@ -7,8 +7,8 @@ char packetBuffer[255];
 
 unsigned int port = 1234;
 
-const char *ssid = "Node_0";  
-const char *password = '\0';
+char *ssid = "Node_0";  
+char password = '\0';
 
 void UdpInit(){
   WiFi.mode(WIFI_STA);

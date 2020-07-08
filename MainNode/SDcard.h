@@ -30,7 +30,22 @@ static uint8_t buf[]="Panda";
 static uint8_t len=5;
 
 //initialize te on board sdcard pins
-void SDcard_Init();
+String SDcard_Init(){
+  sd_spi.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
+
+  //man I really wanted a oneliner
+  return (!SD.begin(SD_CS, sd_spi)) ? "SD Card: mounting failed." : "SD Card: mounted." ;
+}
 
 //Write to sdcard file
-void SDcard_Run();
+void SDcard_Run(){
+  File test = SD.open(LOG_PATH, FILE_APPEND);
+  
+  if (!test)Serial.println("SD Card: writing file failed."); 
+  else {
+      Serial.printf("SD Card: appending data to %s.\n", LOG_PATH);
+      test.write(buf,len);
+      test.printf("\n\n");
+      test.close();
+   }    
+}

@@ -1,4 +1,5 @@
 #include <Arduino.h>
+
 #define gps_serial Serial
 
 static char GPSBuffer[150];
