@@ -15,8 +15,8 @@ Servo servo;
 
 char *NodeNames[] = {"Node_0","Node_1","Node_2"};
 
-void setup() 
-{
+void setup() {
+  
   Serial.begin(115200);
  
   servo.attach(motorPin);
@@ -27,13 +27,14 @@ void setup()
   runMotor(0,200,90); 
 }
 
-void loop() 
-{
+void loop() {
+  
   //for(int i=0;i<3; i++)Check_WiFi_and_Connect(NodeNames[i]);
   //Send_Data_To_Server();
 
-  if((bmp.readAltitude(rdAlt) < 70) && flag) runMotor(90,500,0);
-  else flag = !(bmp.readAltitude(rdAlt) > 70) && flag;
-  
+  if((bmp.readAltitude(rdAlt) < 70) && flag){runMotor(90,500,0);}
+  else flag = !(bmp.readAltitude(rdAlt) > Height) && flag;
+
+  delay(2000);
   printServer("Hello!\r");
 }
