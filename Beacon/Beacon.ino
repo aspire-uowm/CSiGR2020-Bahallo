@@ -33,7 +33,7 @@ void loop() {
   Send_Data_To_Server();
 
   if ((bmp.readAltitude(rdAlt) < Height) && flag ) {runMotor(90,500,0);}
-  else flag = bmp.readAltitude(rdAlt) > Height; 
+  else flag = bmp.readAltitude(rdAlt) > (Height + 300);//we add a safety offset 
 
   delay(2000);
   printServer("Hello!\r");
