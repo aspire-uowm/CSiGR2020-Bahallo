@@ -6,7 +6,7 @@
 #define motorPin 2
 #define runMotor(from,msecs,to) servo.write(from);delay(msecs);servo.write(to)
 
-#define rdAlt 1010  /*!!!!! Adjusted to local forecast !!!!! */
+#define rdAlt 1010  /* !!!!! Adjusted to local forecast !!!!! */
 int flag = 0, height_lock = 800 , height_brake = 70;
 
   
@@ -23,13 +23,12 @@ void setup()
 
   CheckandConnect(NodeNames[0]);
 
-  //runMotor(0,200,90); 
 }
 
 void loop() 
 {
   //for(int i=0;i<3; i++)Check_WiFi_and_Connect(NodeNames[i]);
-  //Send_Data_To_Server();
+  Send_Data_To_Server();
 
   if(i == 0)                  //Check if Servo just started
   {
@@ -51,5 +50,6 @@ void loop()
       delay(5000);            
     }
   }
+  
   printServer("Hello!\r");
 }
