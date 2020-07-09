@@ -31,9 +31,9 @@ void loop() {
   
   //for(int i=0;i<3; i++)Check_WiFi_and_Connect(NodeNames[i]);
   Send_Data_To_Server();
-
+  
   if ((bmp.readAltitude(rdAlt) < Height) && flag ) {runMotor(90,500,0);}
-  else flag = bmp.readAltitude(rdAlt) > (Height + 300);//we add a safety offset 
+  else flag = bmp.readAltitude(rdAlt) > Height;
 
   delay(2000);
   printServer("Hello!\r");
