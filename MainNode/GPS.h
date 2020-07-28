@@ -6,7 +6,7 @@ static char GPSBuffer[150];
 static byte GPSIndex=0;
 static double gps_latitude = 0.0;
 static double gps_longitude = 0.0;
-extern char lat_direction, lgt_direction; 
+static char lat_direction, lgt_direction; 
 
 //function to parse
 void parseNMEA();
