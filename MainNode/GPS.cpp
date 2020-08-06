@@ -110,7 +110,7 @@ void GPSrun(){
   //while (GPSserial.available())Serial.write(GPSserial.read());  
   bool get_fix = false;
   
-  while (!get_fix){
+  if (!get_fix){
     parseNMEA();
     if (isGGA()){
       decodeGGA();

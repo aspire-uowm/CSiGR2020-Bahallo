@@ -11,7 +11,7 @@ void setup() {
   Serial.begin(115200);
 
   GPSinit();//gps initialiization
-  //LoRa_Init();//LoRa initialization
+  LoRa_Init();//LoRa initialization
   Pressure_TemperatureInit();//BMP280 initialization
   SDcard_Init();//initalize SD card pins
   //wifi_sniffer_init();// start asynch wifi listening
@@ -33,6 +33,7 @@ void loop() {
   PressureTemperaturePrint();
   GPSrun();
   SDcard_Run();
+  LoRa_Run("Panda");
 
   delay(1000);
 }
