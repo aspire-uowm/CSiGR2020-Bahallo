@@ -3,8 +3,6 @@
 #include "Pressure_Temperature.h"
 #include "SDcard.h"
 #include "WiFi.h"
-#include "ttnModule.h"
-#include "UdpWifi.h"
 #include "WiFiServer.h"
 
 void setup() {
