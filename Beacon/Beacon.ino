@@ -11,6 +11,7 @@
 #define Height 70
 
 bool flag = false;
+int i=0;//counter to cycle through the networks
   
 Servo servo; 
 
@@ -23,15 +24,15 @@ void setup() {
   servo.attach(motorPin);
   BMPInit();
 
-  CheckandConnect(NodeNames[0]);
+  //CheckandConnect(NodeNames[0]);
   //APsetup();
 
   runMotor(0,200,90); 
 }
 
 void loop() {
-  
-  //for(int i=0;i<3; i++)Check_WiFi_and_Connect(NodeNames[i]);
+
+  CheckandConnect(NodeNames[i++%3]);
   
   if ((bmp.readAltitude(rdAlt) < Height) && flag ) {runMotor(90,500,0);}
   else flag = bmp.readAltitude(rdAlt) > Height;
