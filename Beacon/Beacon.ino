@@ -11,8 +11,8 @@
 #define Height 70
 
 bool flag = false;
-int i=0;//counter to cycle through the networks
-  
+int i=0;
+
 Servo servo; 
 
 char *NodeNames[] = {"Node_0","Node_1","Node_2"};
@@ -27,7 +27,7 @@ void setup() {
   //CheckandConnect(NodeNames[0]);
   //APsetup();
 
-  runMotor(0,200,90); 
+  runMotor(0,200,90);//lock the bahallo into place 
 }
 
 void loop() {
@@ -37,7 +37,7 @@ void loop() {
   if ((bmp.readAltitude(rdAlt) < Height) && flag ) {runMotor(90,500,0);}
   else flag = bmp.readAltitude(rdAlt) > Height;
 
-  delay(2000);
+  delay(1000);
   printServer("Hello!\r");
   //createAPs();
 }
