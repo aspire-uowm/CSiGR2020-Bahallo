@@ -106,7 +106,7 @@ void GPSinit(){
   gps_serial.begin(115200); 
 }
 
-void GPSrun(){
+double* GPSrun(){
   //while (GPSserial.available())Serial.write(GPSserial.read());  
   bool get_fix = false;
   
@@ -114,9 +114,11 @@ void GPSrun(){
     parseNMEA();
     if (isGGA()){
       decodeGGA();
-      if (isValidLocation()){
-        display_location();
+      if (isValidLocation()){ 
         get_fix = true;
+        double coordinates[2] = {gps_latitude,gps_longitude};
+        return coordinates;
+        //display_location();
       }
     }
   }

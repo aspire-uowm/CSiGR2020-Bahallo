@@ -26,8 +26,8 @@
 
 static SPIClass sd_spi(HSPI);
 
-static uint8_t buf[]="Panda";
-static uint8_t len=5;
+//static uint8_t buf[]="Panda";
+//static uint8_t len=5;
 
 //initialize te on board sdcard pins
 String SDcard_Init(){
@@ -38,7 +38,7 @@ String SDcard_Init(){
 }
 
 //Write to sdcard file
-void SDcard_Run(){
+void SDcard_Run(uint8_t* buf,uint8_t len){
   File test = SD.open(LOG_PATH, FILE_APPEND);
   
   if (!test)Serial.println("SD Card: writing file failed."); 

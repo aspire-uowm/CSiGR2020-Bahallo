@@ -8,10 +8,10 @@
 void setup() {
   Serial.begin(115200);
 
-  GPSinit();//gps initialiization
-  LoRa_Init();//LoRa initialization
-  Pressure_TemperatureInit();//BMP280 initialization
-  SDcard_Init();//initalize SD card pins
+  //GPSinit();//gps initialiization
+  //LoRa_Init();//LoRa initialization
+  //Pressure_TemperatureInit();//BMP280 initialization
+  //SDcard_Init();//initalize SD card pins
   //wifi_sniffer_init();// start asynch wifi listening
 
   //ttnDeviceInit();
@@ -28,10 +28,15 @@ void loop() {
   //esp_wifi_set_channel(channel, WIFI_SECOND_CHAN_NONE);
 
   Listen();
-  PressureTemperaturePrint();
-  GPSrun();
-  SDcard_Run();
-  LoRa_Run("Panda");
+  
+  //PressureTemperaturePrint();/* display */
+  //getPrTemAlt();/* get */
+  
+  //GPSrun();
+  
+  //SDcard_Run((uint8_t*)"Panda",(uint8_t)5);
+  
+  //LoRa_Run("Panda");
 
   delay(1000);
 }

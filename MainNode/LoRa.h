@@ -28,7 +28,6 @@ void LoRa_Init(){
   Serial.println("LoRa Initializing OK!");
 }
 
-//run gps
 void LoRa_Run(String message){  
   LoRa.beginPacket();
   LoRa.print(message); 

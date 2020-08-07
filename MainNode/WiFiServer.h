@@ -32,13 +32,16 @@ void Listen(){
 
   if(!client)return;
   
-  while(client.connected()){
+  if(client.connected()){
     //if(client.available())Serial.write(client.read());  
     //client.stop();
     
     Serial.println("From the station: " + client.readStringUntil('\r'));
     client.flush();
+    
     Serial.print("Byte sent to the station: ");
-    Serial.println(client.println("Hey!" + '\r'));
+    Serial.println(client.println("Hey!" + '\r')); 
   }
 }
+
+//long getRSSI(){return WiFi.RSSI();}

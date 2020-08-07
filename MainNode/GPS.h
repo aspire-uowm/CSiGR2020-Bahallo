@@ -38,4 +38,4 @@ bool isValidLocation();
 //function in order to display the stats ;)
 void display_location();
 void GPSinit();
-void GPSrun();
+double* GPSrun();

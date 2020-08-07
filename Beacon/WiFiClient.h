@@ -23,11 +23,11 @@ void CheckandConnect(char* ssid){
   Serial.println("AP MAC: " + WiFi.BSSIDstr());
 }
 
-void printServer(String msg){
+void printServer(/*String msg*/){
   client.connect(server,80);
   
   Serial.print("Byte sent to the AP: ");
-  Serial.println(client.print(msg));
+  Serial.println(client.print(WiFi.RSSI()+'\r'));
   
   Serial.println("From the AP: " + client.readStringUntil('\r'));
   
