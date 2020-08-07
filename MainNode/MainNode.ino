@@ -8,35 +8,33 @@
 void setup() {
   Serial.begin(115200);
 
-  //GPSinit();//gps initialiization
-  //LoRa_Init();//LoRa initialization
-  //Pressure_TemperatureInit();//BMP280 initialization
-  //SDcard_Init();//initalize SD card pins
+  GPSinit();//gps initialiization
+  LoRa_Init();//LoRa initialization
+  Pressure_TemperatureInit();//BMP280 initialization
+  SDcard_Init();//initalize SD card pins
   //wifi_sniffer_init();// start asynch wifi listening
-
-  //ttnDeviceInit();
 
   InitServer();
 }
 
 void loop() {
-
-  //ttnDevice_get();
+  String Data = "From Node: ";
 
   //necessary code for wifi but could make this a macro
-  //vTaskDelay(WIFI_CHANNEL_SWITCH_INTERVAL / portTICK_PERIOD_MS);
-  //esp_wifi_set_channel(channel, WIFI_SECOND_CHAN_NONE);
+  /*vTaskDelay(WIFI_CHANNEL_SWITCH_INTERVAL / portTICK_PERIOD_MS);
+  esp_wifi_set_channel(channel, WIFI_SECOND_CHAN_NONE);*/
 
-  Listen();
+  Data += Listen();
   
   //PressureTemperaturePrint();/* display */
-  //getPrTemAlt();/* get */
+  for(int i=0; i<3; i++)Data += String(getPrTemAlt()[i]);
   
   //GPSrun();
+  for(int i=0; i<2; i++)Data += String(GPSrun()[i]);
   
-  //SDcard_Run((uint8_t*)"Panda",(uint8_t)5);
+  SDcard_Run((uint8_t*)atoi(Data.c_str()),(uint8_t)Data.length());
   
-  //LoRa_Run("Panda");
+  LoRa_Run(Data);
 
-  delay(1000);
+  delay(500);
 }
