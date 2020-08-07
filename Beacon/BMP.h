@@ -1,8 +1,9 @@
 #include <Adafruit_BMP280.h>
+
 Adafruit_BMP280 bmp; // I2C Interface
 
-void BMPInit() 
-{
+void BMPInit(){
+  
   Serial.println(F("BMP280 test"));
 
   while (!bmp.begin()) 
