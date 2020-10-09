@@ -7,7 +7,7 @@
 #define SD_MOSI 15
 #define SD_MISO 2
 
-#define LOG_PATH "/testdir.log"
+#define LOG_PATH "/mes.log"
 
 /*
  * Connect the SD card to the following pins:
@@ -45,7 +45,7 @@ void SDcard_Run(uint8_t* buf,uint8_t len){
   else {
       Serial.printf("SD Card: appending data to %s.\n", LOG_PATH);
       test.write(buf,len);
-      test.printf("\n\n");
+      test.printf("\n");
       test.close();
    }    
 }

@@ -41,9 +41,9 @@ String Listen(){
   if(!client)return "\0";
   
   if(client.connected()){
-    //if(client.available())Serial.write(client.read());  
-    //client.stop();
-    //displayInfo(client);
+    if(client.available())Serial.write(client.read());  
+    client.stop();
+    displayInfo(client);
     
     return client.readStringUntil('\r');
   }else return "\0";

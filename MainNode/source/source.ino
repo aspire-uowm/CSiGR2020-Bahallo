@@ -8,9 +8,9 @@
 void setup() {
   Serial.begin(115200);
 
-  GPSinit();//gps initialiization
-  LoRa_Init();//LoRa initialization
-  Pressure_TemperatureInit();//BMP280 initialization
+  //GPSinit();//gps initialiization
+  //LoRa_Init();//LoRa initialization
+  //Pressure_TemperatureInit();//BMP280 initialization
   SDcard_Init();//initalize SD card pins
   //wifi_sniffer_init();// start asynch wifi listening
 
@@ -27,14 +27,13 @@ void loop() {
   Data += Listen();
   
   //PressureTemperaturePrint();/* display */
-  for(int i=0; i<3; i++)Data += String(getPrTemAlt()[i]);
+  //for(int i=0; i<3; i++)Data += String(getPrTemAlt()[i]);
   
   //GPSrun();
-  for(int i=0; i<2; i++)Data += String(GPSrun()[i]);
+  //for(int i=0; i<2; i++)Data += String(GPSrun()[i]);
   
   SDcard_Run((uint8_t*)atoi(Data.c_str()),(uint8_t)Data.length());
   
-  LoRa_Run(Data);
-
+  //LoRa_Run(Data);
   delay(500);
 }

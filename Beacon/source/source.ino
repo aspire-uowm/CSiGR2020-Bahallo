@@ -21,21 +21,21 @@ void setup() {
   
   Serial.begin(115200);
  
-  servo.attach(motorPin);
-  BMPInit();
+  //servo.attach(motorPin);
+  //BMPInit();
 
   CheckandConnect(NodeNames[0]);
   //APsetup();
 
-  runMotor(0,200,90);//lock the bahallo into place 
+  //runMotor(0,200,90);//lock the bahallo into place 
 }
 
 void loop() {
 
   //CheckandConnect(NodeNames[i++%3]);
   
-  if ((bmp.readAltitude(rdAlt) < Height) && flag ) {runMotor(90,500,0);}
-  else flag = bmp.readAltitude(rdAlt) > Height;
+  //if ((bmp.readAltitude(rdAlt) < Height) && flag ) {runMotor(90,500,0);}
+  //else flag = bmp.readAltitude(rdAlt) > Height;
 
   delay(1000);
   printServer(/*"Hello!\r"*/);
