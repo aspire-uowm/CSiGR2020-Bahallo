@@ -14,6 +14,7 @@ void setup() {
   //SDcard_Init();//initalize SD card pins
   //wifi_sniffer_init();// start asynch wifi listening
 
+    Serial.println(WiFi.macAddress());
   //InitServer();
 }
 
@@ -24,7 +25,7 @@ void loop() {
   /*vTaskDelay(WIFI_CHANNEL_SWITCH_INTERVAL / portTICK_PERIOD_MS);
   esp_wifi_set_channel(channel, WIFI_SECOND_CHAN_NONE);*/
 
-  Data += Listen();
+  //Data += Listen();
   
   //PressureTemperaturePrint();/* display */
   //for(int i=0; i<3; i++)Data += String(getPrTemAlt()[i]);

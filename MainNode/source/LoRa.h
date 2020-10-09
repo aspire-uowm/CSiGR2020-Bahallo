@@ -12,7 +12,7 @@
 #define DIO0 26
 
 //866E6 for Europe
-#define BAND 866E6
+#define BAND 433E6//866E6
 
 //initialize LoRa modulation
 void LoRa_Init(){
