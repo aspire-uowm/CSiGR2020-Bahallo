@@ -24,7 +24,7 @@ void setup() {
   //servo.attach(motorPin);
   //BMPInit();
 
-  CheckandConnect(NodeNames[0]);
+  //CheckandConnect(NodeNames[0]);
   //APsetup();
 
   //runMotor(0,200,90);//lock the bahallo into place 
